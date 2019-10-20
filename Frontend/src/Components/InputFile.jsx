@@ -20,18 +20,28 @@ export class InputFile extends Component {
   handleUpload() {
     const endpoint = "http://localhost:5000/api/upload";
     const data = new FormData();
-    data.append("file", this.state.selectedFile, this.state.selectedFile.name);
-    axios
-      .post(endpoint, data, {
-        onUploadProgress: ProgressEvent => {
-          this.setState({
-            loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100
-          });
-        }
-      })
-      .then(res => {
-        console.log(res.statusText);
-      });
+    if (this.state.selectedFile != null) {
+      data.append(
+        "file",
+        this.state.selectedFile,
+        this.state.selectedFile.name
+      );
+      axios
+        .post(endpoint, data, {
+          onUploadProgress: ProgressEvent => {
+            this.setState({
+              loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100
+            });
+          }
+        })
+        .then(res => {
+          console.log(res.statusText);
+          localStorage.csvFile = res.data;
+        });
+      alert("File send with success!");
+    } else {
+      alert("Need to select a file.");
+    }
   }
 
   render() {

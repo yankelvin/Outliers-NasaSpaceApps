@@ -17,13 +17,14 @@ export class BtnDownload extends Component {
   render() {
     return (
       <div className="mb-3 mt-4" style={{ textAlign: "center" }}>
-        <button
-          onClick={this.downloadCsv}
+        <a
+          href="../../comets_final.csv"
           id="btnDownload"
           className="inputShadow btn btn-secondary"
+          download="file.csv"
         >
           Download CSV
-        </button>
+        </a>
       </div>
     );
   }
